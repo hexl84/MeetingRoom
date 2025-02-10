@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
 
-const pages = ['Users', 'Rooms', 'Booking', 'Book History'];
+const pages = [{Name:'Users', Url:'/users'},{Name:'Rooms', Url:'/rooms'},{Name:'Booking', Url:'/bookings'}, {Name:'Book History', Url:'/booking-histories'}];
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -31,7 +31,12 @@ function ResponsiveAppBar() {
 
 
   const handleCloseNavMenu = (url) => {
-    navigate('/rooms')
+    navigate(url);
+    setAnchorElNav(null);
+  };
+
+  const handleClickNavMenu = (url) => {
+    navigate('/rooms');
     setAnchorElNav(null);
   };
 
@@ -86,12 +91,11 @@ function ResponsiveAppBar() {
                 horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (             
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem key={page.Url} onClick={handleClickNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>{page.Name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -118,11 +122,11 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.Url}
+                onClick={handleClickNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.Name}
               </Button>
             ))}
           </Box>
