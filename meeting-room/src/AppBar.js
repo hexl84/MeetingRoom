@@ -36,7 +36,7 @@ function ResponsiveAppBar() {
   };
 
   const handleClickNavMenu = (url) => {
-    navigate('/rooms');
+    navigate(url);
     setAnchorElNav(null);
   };
 
@@ -94,7 +94,7 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (             
-                <MenuItem key={page.Url} onClick={handleClickNavMenu}>
+                <MenuItem key={page.Url} onClick={()=>handleClickNavMenu(page.Url)}>
                   <Typography sx={{ textAlign: 'center' }}>{page.Name}</Typography>
                 </MenuItem>
               ))}
@@ -123,7 +123,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page.Url}
-                onClick={handleClickNavMenu}
+                onClick={()=>handleClickNavMenu(page.Url)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.Name}
