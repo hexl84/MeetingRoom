@@ -50,15 +50,17 @@ export default function BookingHistoriesTabs() {
           <Tab label="Cancelled" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <BookHistoryTable tabIndex={value} />
+      {value}
+      <BookHistoryTable tabIndex={value} />
+      {/* <CustomTabPanel value={value} index={0}>
+        {value}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <BookHistoryTable tabIndex={value} />
+      {value}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <BookHistoryTable tabIndex={value} />
-      </CustomTabPanel>
+        {value}
+      </CustomTabPanel> */}
     </Box>
   );
 }

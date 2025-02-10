@@ -34,16 +34,16 @@ const cancelledBookings = [
 export default function BookHistoryTable(tabIndex) {
   switch(tabIndex){
     case 0:
-      rows = OngoingBookings;
+      rows = [...OngoingBookings];
       break;
     case 1:
-      rows = completeBookings;
+      rows = [...completeBookings];
       break;
     case 2:
-      rows = cancelledBookings;
+      rows = [...cancelledBookings];
       break;
     default:
-      rows = OngoingBookings;
+      rows = [...OngoingBookings];
       break;
   }
 
