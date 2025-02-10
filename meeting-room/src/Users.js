@@ -7,16 +7,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, phone, email, roleName) {
+  return { name, phone, email, roleName };
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  createData('Zhangsan', 15912345678, 'zhangsan@mail.com', 'Normal'),
+  createData('Lisi', 15312345678, 'lisi@mail.com', 'Normal'),
+  createData('Wangwu', 15778961234, 'wangwu@mail.com', 'Normal'),
+  createData('Guanyu', 17745467879, 'guanyu@mail.com', 'Normal'),
+  createData('Machao', 17812124545, 'machao@mail.com', 'Normal'),
 ];
 
 export default function UsersTable() {
@@ -27,9 +27,9 @@ export default function UsersTable() {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell align="right">Email</TableCell>
+            <TableCell align="right">Phone</TableCell>
             <TableCell align="right">Role</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell align="right">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -41,10 +41,10 @@ export default function UsersTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.email}</TableCell>
+              <TableCell align="right">{row.phone}</TableCell>
+              <TableCell align="right">{row.roleName}</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           ))}
         </TableBody>
