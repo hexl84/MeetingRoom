@@ -28,11 +28,11 @@ export default function UsersTable() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">Phone</TableCell>
-              <TableCell align="right">Role</TableCell>
-              <TableCell align="right">Action</TableCell>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="left">Email</TableCell>
+              <TableCell align="left">Phone</TableCell>
+              <TableCell align="left">Role</TableCell>
+              <TableCell align="left">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -44,10 +44,10 @@ export default function UsersTable() {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.email}</TableCell>
-                <TableCell align="right">{row.phone}</TableCell>
-                <TableCell align="right">{row.roleName}</TableCell>
-                <TableCell align="right"></TableCell>
+                <TableCell align="left">{row.email}</TableCell>
+                <TableCell align="left">{row.phone}</TableCell>
+                <TableCell align="left">{row.roleName}</TableCell>
+                <TableCell align="left"></TableCell>
               </TableRow>
             ))}
           </TableBody>
