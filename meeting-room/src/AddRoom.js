@@ -9,12 +9,14 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
-export default function AddUserForm() {
+export default function AddRoomForm() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    phone: "",
-    role: "",
+    capacity: 0,
+    status: "",
+    type: "",
+    period: "",
+    comment: "",
   });
 
   const navigate = useNavigate();
@@ -30,12 +32,12 @@ export default function AddUserForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    navigate("/users");
+    navigate("/rooms");
   };
 
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-      <h1>Add User</h1>
+      <h1>Add Room</h1>
       <div>
         <TextField
           fullWidth
@@ -50,9 +52,10 @@ export default function AddUserForm() {
         <TextField
           fullWidth
           id="standard-basic"
-          label="Email"
+          label="Capacity"
           variant="standard"
-          name="email"
+          type="number"
+          name="capacity"
           onChange={handleChange}
         />
       </div>
@@ -60,29 +63,42 @@ export default function AddUserForm() {
         <TextField
           fullWidth
           id="standard-basic"
-          label="Phone"
+          label="Status"
           variant="standard"
-          name="phone"
+          name="status"
           onChange={handleChange}
         />
       </div>
       <div>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Role</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={formData.role}
-            label="Role"
-            name="role"
-            onChange={handleChange}
-          >
-            <MenuItem value={1}>Admin</MenuItem>
-            <MenuItem value={2}>Normal</MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          fullWidth
+          id="standard-basic"
+          label="Type"
+          variant="standard"
+          name="type"
+          onChange={handleChange}
+        />
       </div>
-
+      <div>
+        <TextField
+          fullWidth
+          id="standard-basic"
+          label="Period"
+          variant="standard"
+          name="period"
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <TextField
+          fullWidth
+          id="standard-basic"
+          label="Comment"
+          variant="standard"
+          name="comment"
+          onChange={handleChange}
+        />
+      </div>
       <Button variant="contained" type="submit">
         Save
       </Button>
