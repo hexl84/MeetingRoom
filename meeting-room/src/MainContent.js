@@ -6,6 +6,7 @@ import BookingHistoriesTabs from "./BookHistory";
 import AddUserForm from "./AddUser";
 import AddRoomForm from "./AddRoom";
 import LoginForm from "./Login";
+import UserProfileForm from "./UserProfile";
 
 export default function MainContent() {
   return (
@@ -16,6 +17,7 @@ export default function MainContent() {
         <Route path="/add-user" element={<AddUserForm />}></Route>
         <Route path="/rooms" element={<RoomsTable />}></Route>
         <Route path="/add-room" element={<AddRoomForm />}></Route>
+        <Route path="/profile" element={<UserProfileForm />}></Route>
         <Route
           path="/booking-histories"
           element={<BookingHistoriesTabs />}

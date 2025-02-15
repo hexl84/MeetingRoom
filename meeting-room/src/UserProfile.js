@@ -1,15 +1,11 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function AddUserForm() {
+function UserProfileForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,6 +14,15 @@ export default function AddUserForm() {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loginUser = localStorage.getItem("loginUser");
+    if (loginUser) {
+      setFormData(JSON.parse(loginUser)); // Parse the string back to an object
+    } else {
+      navigate("/login");
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,21 +38,17 @@ export default function AddUserForm() {
     navigate("/users");
   };
 
-  const handleReset = (e) => {
+  const handleCancel = (e) => {
     e.preventDefault();
     navigate("/users");
   };
 
   return (
-    <form
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-      onReset={handleReset}
-    >
-      <h1>Add User</h1>
+    <form autoComplete="off" onSubmit={handleSubmit} onReset={handleCancel}>
+      <h1>Profile</h1>
       <div>
         <TextField
+          required
           fullWidth
           id="standard-basic"
           label="Name"
@@ -58,6 +59,7 @@ export default function AddUserForm() {
       </div>
       <div>
         <TextField
+          required
           fullWidth
           id="standard-basic"
           label="Email"
@@ -68,6 +70,7 @@ export default function AddUserForm() {
       </div>
       <div>
         <TextField
+          required
           fullWidth
           id="standard-basic"
           label="Phone"
@@ -77,20 +80,14 @@ export default function AddUserForm() {
         />
       </div>
       <div>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Role</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={formData.role}
-            label="Role"
-            name="role"
-            onChange={handleChange}
-          >
-            <MenuItem value={1}>Admin</MenuItem>
-            <MenuItem value={2}>Normal</MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          fullWidth
+          id="standard-basic"
+          label="Role"
+          variant="standard"
+          name="role"
+          disabled
+        />
       </div>
 
       <Button variant="contained" type="submit">
@@ -102,3 +99,5 @@ export default function AddUserForm() {
     </form>
   );
 }
+
+export default UserProfileForm;

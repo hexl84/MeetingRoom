@@ -1,10 +1,5 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
@@ -35,8 +30,18 @@ export default function AddRoomForm() {
     navigate("/rooms");
   };
 
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate("/rooms");
+  };
+
   return (
-    <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+    <form
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+      onReset={handleCancel}
+    >
       <h1>Add Room</h1>
       <div>
         <TextField
@@ -101,6 +106,9 @@ export default function AddRoomForm() {
       </div>
       <Button variant="contained" type="submit">
         Save
+      </Button>
+      <Button variant="contained" type="reset">
+        Cancel
       </Button>
     </form>
   );
