@@ -15,6 +15,7 @@ export default function LoginForm() {
     email: "admin@qq.com",
     phone: "12355667788",
     role: "Admin",
+    roleId: 1,
   };
   const normalUser = {
     id: 2,

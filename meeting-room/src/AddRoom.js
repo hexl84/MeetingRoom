@@ -39,7 +39,10 @@ export default function AddRoomForm() {
     };
 
     if (id > 0) {
+      setIsAdd(false);
       getRoom();
+    } else {
+      setLoading(false);
     }
   }, [id]);
 
@@ -62,6 +65,8 @@ export default function AddRoomForm() {
     navigate("/rooms");
   };
 
+  if (loading) return <div>Loading...</div>;
+
   return (
     <form autoComplete="off" onSubmit={handleSubmit} onReset={handleCancel}>
       {isAdd ? <h1>Add Room</h1> : <h1>Edit Room</h1>}
@@ -72,6 +77,7 @@ export default function AddRoomForm() {
           label="Name"
           variant="standard"
           name="name"
+          value={formData.name}
           onChange={handleChange}
         />
       </div>
@@ -83,6 +89,7 @@ export default function AddRoomForm() {
           variant="standard"
           type="number"
           name="capacity"
+          value={formData.capacity}
           onChange={handleChange}
         />
       </div>
@@ -93,6 +100,7 @@ export default function AddRoomForm() {
           label="Status"
           variant="standard"
           name="status"
+          value={formData.status}
           onChange={handleChange}
         />
       </div>
@@ -103,6 +111,7 @@ export default function AddRoomForm() {
           label="Type"
           variant="standard"
           name="type"
+          value={formData.type}
           onChange={handleChange}
         />
       </div>
@@ -113,6 +122,7 @@ export default function AddRoomForm() {
           label="Period"
           variant="standard"
           name="period"
+          value={formData.period}
           onChange={handleChange}
         />
       </div>
@@ -123,6 +133,7 @@ export default function AddRoomForm() {
           label="Comment"
           variant="standard"
           name="comment"
+          value={formData.comment}
           onChange={handleChange}
         />
       </div>
