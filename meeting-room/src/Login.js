@@ -1,6 +1,6 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -22,6 +22,13 @@ export default function LoginForm() {
     phone: "15378964545",
     role: "Normal",
   };
+
+  useEffect(() => {
+    const loginUser = localStorage.getItem("loginUser");
+    if (loginUser) {
+      localStorage.removeItem("loginUser");
+    }
+  }, []);
 
   const navigate = useNavigate();
 

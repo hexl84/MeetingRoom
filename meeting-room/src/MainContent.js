@@ -7,6 +7,7 @@ import AddUserForm from "./AddUser";
 import AddRoomForm from "./AddRoom";
 import LoginForm from "./Login";
 import UserProfileForm from "./UserProfile";
+import EditUserForm from "./EditUser";
 
 export default function MainContent() {
   return (
@@ -15,14 +16,16 @@ export default function MainContent() {
         <Route path="/login" element={<LoginForm />}></Route>
         <Route path="/users" element={<UsersTable />}></Route>
         <Route path="/add-user" element={<AddUserForm />}></Route>
+        <Route path="/edit-user/:id" element={<EditUserForm />}></Route>
         <Route path="/rooms" element={<RoomsTable />}></Route>
         <Route path="/add-room" element={<AddRoomForm />}></Route>
+        <Route path="/edit-room/:id" element={<AddRoomForm />}></Route>
         <Route path="/profile" element={<UserProfileForm />}></Route>
         <Route
           path="/booking-histories"
           element={<BookingHistoriesTabs />}
         ></Route>
-        <Route path="/" element={<Navigate to="/rooms" />}></Route>
+        <Route path="/" element={<Navigate to="/login" />}></Route>
       </Routes>
     </div>
   );

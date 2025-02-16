@@ -7,25 +7,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
-
-function createData(name, phone, email, roleName) {
-  return { name, phone, email, roleName };
-}
-
-const rows = [
-  createData("Zhangsan", 15912345678, "zhangsan@mail.com", "Normal"),
-  createData("Lisi", 15312345678, "lisi@mail.com", "Normal"),
-  createData("Wangwu", 15778961234, "wangwu@mail.com", "Normal"),
-  createData("Guanyu", 17745467879, "guanyu@mail.com", "Normal"),
-  createData("Machao", 17812124545, "machao@mail.com", "Normal"),
-];
+import usersJson from "./data/UsersData.json";
 
 export default function UsersTable() {
   const navigate = useNavigate();
+  const rows = usersJson;
 
   const handleClickAdd = () => {
     navigate("/add-user");
+  };
+
+  const handleClickEdit = (user) => {
+    navigate("/edit-user/" + user.id);
   };
 
   return (
@@ -57,7 +53,15 @@ export default function UsersTable() {
                 <TableCell align="left">{row.email}</TableCell>
                 <TableCell align="left">{row.phone}</TableCell>
                 <TableCell align="left">{row.roleName}</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left">
+                  <IconButton
+                    color="secondary"
+                    aria-label="add an alarm"
+                    onClick={() => handleClickEdit(row)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
