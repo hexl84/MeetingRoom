@@ -1,11 +1,17 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import roomsJson from "./data/RoomsData.json";
 
 export default function AddRoomForm() {
+  const { id } = useParams();
+  const [isAdd, setIsAdd] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
+    id: 0,
     name: "",
     capacity: 0,
     status: "",
@@ -15,6 +21,27 @@ export default function AddRoomForm() {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getRoom = async () => {
+      try {
+        const response = await axios.get(
+          "https://localhost:3001/api/rooms/" + id
+        );
+        setFormData(response.data);
+        setLoading(false);
+      } catch (error) {
+        const matchRoom = roomsJson.find((room) => room.id == id);
+        setFormData(matchRoom);
+
+        setLoading(false);
+      }
+    };
+
+    if (id > 0) {
+      getRoom();
+    }
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,13 +63,8 @@ export default function AddRoomForm() {
   };
 
   return (
-    <form
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-      onReset={handleCancel}
-    >
-      <h1>Add Room</h1>
+    <form autoComplete="off" onSubmit={handleSubmit} onReset={handleCancel}>
+      {isAdd ? <h1>Add Room</h1> : <h1>Edit Room</h1>}
       <div>
         <TextField
           fullWidth

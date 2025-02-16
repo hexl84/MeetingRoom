@@ -56,7 +56,6 @@ export default function UsersTable() {
                 <TableCell align="left">
                   <IconButton
                     color="secondary"
-                    aria-label="add an alarm"
                     onClick={() => handleClickEdit(row)}
                   >
                     <EditIcon />

@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
 
 function createData(id, name, capacity, status, type, period, comment) {
   return { id, name, capacity, status, type, period, comment };
@@ -26,6 +28,10 @@ export default function RoomsTable() {
     navigate("/add-room");
   };
 
+  const handleClickEdit = (room) => {
+    navigate("/edit-room/" + room.id);
+  };
+
   return (
     <div>
       <h1>Rooms</h1>
@@ -42,6 +48,7 @@ export default function RoomsTable() {
               <TableCell align="left">Type</TableCell>
               <TableCell align="left">Period</TableCell>
               <TableCell align="left">Comment</TableCell>
+              <TableCell align="left">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -58,7 +65,14 @@ export default function RoomsTable() {
                 <TableCell align="left">{row.type}</TableCell>
                 <TableCell align="left">{row.period}</TableCell>
                 <TableCell align="left">{row.comment}</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left">
+                  <IconButton
+                    color="secondary"
+                    onClick={() => handleClickEdit(row)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

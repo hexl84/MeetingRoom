@@ -1,0 +1,5 @@
+[
+    {"id":1, "name":"Room 1", "capacity": "4", "status": "Active", "type": "Samll", "period":[], "comment":""},
+    {"id":2, "name":"Room 2", "capacity":"5", "status": "Active", "type": "Middle","period":[], "comment":""},
+    {"id":3, "name":"Room 3", "capacity":"6", "status": "Active", "type": "Big","period":[], "comment":""}
+]

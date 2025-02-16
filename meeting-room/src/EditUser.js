@@ -22,7 +22,6 @@ function EditUserForm() {
   });
 
   const navigate = useNavigate();
-  const users = usersJson;
 
   useEffect(() => {
     const getUser = async () => {
@@ -33,7 +32,7 @@ function EditUserForm() {
         setFormData(response.data);
         setLoading(false);
       } catch (error) {
-        const matchUser = users.find((user) => user.id == id);
+        const matchUser = usersJson.find((user) => user.id == id);
         setFormData(matchUser);
 
         setLoading(false);
@@ -59,6 +58,7 @@ function EditUserForm() {
 
   const handleReset = (e) => {
     e.preventDefault();
+    setFormData(null);
     navigate("/users");
   };
 
