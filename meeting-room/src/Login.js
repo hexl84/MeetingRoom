@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid2";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -68,6 +72,20 @@ export default function LoginForm() {
   };
 
   return (
+    // <Box sx={{ flexGrow: 1 }}>
+    //   <Grid container spacing={2}>
+    //     <Grid xs={4}>
+    //       <Paper sx={{ textAlign: "center" }}></Paper>
+    //     </Grid>
+    //     <Grid xs={8}>
+    //       <Paper sx={{ textAlign: "center" }}></Paper>
+    //     </Grid>
+    //     <Grid xs={4}>
+    //       <Paper sx={{ textAlign: "center" }}></Paper>
+    //     </Grid>
+    //   </Grid>
+    // </Box>
+
     <form autoComplete="off" onSubmit={handleSubmit}>
       <h1>Meeting Room</h1>
       <div>
