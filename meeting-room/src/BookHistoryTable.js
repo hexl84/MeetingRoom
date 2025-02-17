@@ -1,40 +1,75 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { useState, useEffect } from 'react';
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { useState, useEffect } from "react";
 
 function createData(id, date, room, period, title, participants) {
-  return { id, date, room, period, title, participants};
+  return { id, date, room, period, title, participants };
 }
 
 const ongoingBookings = [
-  createData(1, '2025-02-10', 'Room 1', '14:00-15:00', 'code review', '张三，李四'),
-  createData(2, '2025-02-11', 'Room 2', '15:00-16:00', 'sprint plan', '关羽，张飞'),
-  createData(3, '2025-02-12', 'Room 3', '09:00-10:00', 'demo', '郭靖，杨过'),
+  createData(
+    1,
+    "2025-02-10",
+    "Room 1",
+    "14:00-15:00",
+    "code review",
+    "张三，李四"
+  ),
+  createData(
+    2,
+    "2025-02-11",
+    "Room 2",
+    "15:00-16:00",
+    "sprint plan",
+    "关羽，张飞"
+  ),
+  createData(3, "2025-02-12", "Room 3", "09:00-10:00", "demo", "郭靖，杨过"),
 ];
 
 const completeBookings = [
-  createData(4, '2025-02-5', 'Room 1', '14:00-15:00', 'test 1', '张三，李四'),
-  createData(5, '2025-02-6', 'Room 2', '15:00-16:00', 'test 2', '关羽，张飞'),
-  createData(6, '2025-02-7', 'Room 3', '9:00-10:00', 'test3', '郭靖，杨过'),
+  createData(4, "2025-02-5", "Room 1", "14:00-15:00", "test 1", "张三，李四"),
+  createData(5, "2025-02-6", "Room 2", "15:00-16:00", "test 2", "关羽，张飞"),
+  createData(6, "2025-02-7", "Room 3", "9:00-10:00", "test3", "郭靖，杨过"),
 ];
 
 const cancelledBookings = [
-  createData(7, '2025-02-10', 'Room 1', '10:00-11:00', 'cancel 1', '张三，李四'),
-  createData(8, '2025-02-11', 'Room 2', '14:00-15:00', 'cancel 2', '关羽，张飞'),
-  createData(9, '2025-02-12', 'Room 3', '10:00-11:00', 'cancel 3', '郭靖，杨过'),
+  createData(
+    7,
+    "2025-02-10",
+    "Room 1",
+    "10:00-11:00",
+    "cancel 1",
+    "张三，李四"
+  ),
+  createData(
+    8,
+    "2025-02-11",
+    "Room 2",
+    "14:00-15:00",
+    "cancel 2",
+    "关羽，张飞"
+  ),
+  createData(
+    9,
+    "2025-02-12",
+    "Room 3",
+    "10:00-11:00",
+    "cancel 3",
+    "郭靖，杨过"
+  ),
 ];
 
-export default function BookHistoryTable({tabIndex}) {
+export default function BookHistoryTable({ tabIndex, currentUser }) {
   const [histories, setHistories] = useState([]);
 
   useEffect(() => {
-    switch(tabIndex){
+    switch (tabIndex) {
       case 0:
         setHistories(ongoingBookings);
         break;
@@ -48,7 +83,6 @@ export default function BookHistoryTable({tabIndex}) {
         setHistories(ongoingBookings);
         break;
     }
-
   }, [tabIndex]);
 
   return (
@@ -66,10 +100,10 @@ export default function BookHistoryTable({tabIndex}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(Array.isArray(histories) ?histories: []).map((history) => (
+            {(Array.isArray(histories) ? histories : []).map((history) => (
               <TableRow
                 key={history.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
                   {history.date}

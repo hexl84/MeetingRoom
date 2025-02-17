@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import roomsJson from "./data/RoomsData.json";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 export default function AddRoomForm() {
   const { id } = useParams();
@@ -94,7 +96,7 @@ export default function AddRoomForm() {
         />
       </div>
       <div>
-        <TextField
+        {/* <TextField
           fullWidth
           id="standard-basic"
           label="Status"
@@ -102,6 +104,17 @@ export default function AddRoomForm() {
           name="status"
           value={formData.status}
           onChange={handleChange}
+        /> */}
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="status"
+              defaultChecked
+              value={formData.status}
+              onChange={handleChange}
+            />
+          }
+          label="Status"
         />
       </div>
       <div>

@@ -1,10 +1,11 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import BookHistoryTable from './BookHistoryTable';
-import { useState } from 'react';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import BookHistoryTable from "./BookHistoryTable";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -31,36 +32,43 @@ CustomTabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
 export default function BookingHistoriesTabs() {
+  const navigate = useNavigate();
   const [value, setValue] = useState(0);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const loginUser = localStorage.getItem("loginUser");
+    if (loginUser) {
+      setCurrentUser(JSON.parse(loginUser)); // Parse the string back to an object
+    } else {
+      navigate("/login");
+    }
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+    <Box sx={{ width: "100%" }}>
+      <h1>Booking Histories</h1>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
           <Tab label="Ongoing" {...a11yProps(0)} />
           <Tab label="Complete" {...a11yProps(1)} />
           <Tab label="Cancelled" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <BookHistoryTable tabIndex={value} />
-      {/* <CustomTabPanel value={value} index={0}>
-        {value}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-      {value}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        {value}
-      </CustomTabPanel> */}
+      <BookHistoryTable tabIndex={value} user={currentUser} />
     </Box>
   );
 }
