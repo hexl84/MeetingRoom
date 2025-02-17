@@ -8,6 +8,7 @@ import AddRoomForm from "./AddRoom";
 import LoginForm from "./Login";
 import UserProfileForm from "./UserProfile";
 import EditUserForm from "./EditUser";
+// import BookingForm from "./Booking";
 
 export default function MainContent() {
   return (
@@ -20,6 +21,7 @@ export default function MainContent() {
         <Route path="/rooms" element={<RoomsTable />}></Route>
         <Route path="/add-room" element={<AddRoomForm />}></Route>
         <Route path="/edit-room/:id" element={<AddRoomForm />}></Route>
+        {/* <Route path="/booking-room/:id" element={<BookingForm />}></Route> */}
         <Route path="/profile" element={<UserProfileForm />}></Route>
         <Route
           path="/booking-histories"

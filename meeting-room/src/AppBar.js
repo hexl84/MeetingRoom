@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 const pages = [
   { Name: "Users", Url: "/users" },
   { Name: "Rooms", Url: "/rooms" },
-  { Name: "Booking", Url: "/bookings" },
   { Name: "Book History", Url: "/booking-histories" },
 ];
 

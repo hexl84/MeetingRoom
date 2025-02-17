@@ -62,6 +62,8 @@ function EditUserForm() {
     navigate("/users");
   };
 
+  if (loading) return <div>Loading...</div>;
+
   return (
     <form
       noValidate
