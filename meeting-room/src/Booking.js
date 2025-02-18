@@ -19,6 +19,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import dayjs from "dayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 function BookingForm() {
   const navigate = useNavigate();
@@ -29,6 +33,7 @@ function BookingForm() {
   const [currentRoom, setCurrentRoom] = useState();
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
+  const [bookingDate, setBookingDate] = useState(dayjs());
 
   useEffect(() => {
     const getPeriod = async () => {
@@ -70,6 +75,13 @@ function BookingForm() {
       <h1>Booking {currentRoom.name}</h1>
       <div>
         <FormControl fullWidth>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Booking Date"
+              value={bookingDate}
+              onChange={(newDate) => setBookingDate(newDate)}
+            />
+          </LocalizationProvider>
           <InputLabel id="select-start-label">Start</InputLabel>
           <Select
             labelId="select-start-label"
