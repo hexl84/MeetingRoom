@@ -36,7 +36,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BookingHistoriesTabs() {
+function BookingHistoriesTabs() {
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
   const [currentUser, setCurrentUser] = useState(null);
@@ -72,3 +72,5 @@ export default function BookingHistoriesTabs() {
     </Box>
   );
 }
+
+export default BookingHistoriesTabs;

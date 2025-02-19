@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import usersJson from "./data/UsersData.json";
+import usersJson from "../../data/UsersData.json";
 
 function EditUserForm() {
   const { id } = useParams();

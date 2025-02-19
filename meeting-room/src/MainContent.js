@@ -1,15 +1,15 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import UsersTable from "./Users";
+import UsersTable from "./components/user/Users";
 import React from "react";
-import RoomsTable from "./Rooms";
-import BookingHistoriesTabs from "./BookHistory";
-import AddUserForm from "./AddUser";
+import RoomsTable from "./components/room/Rooms";
+import BookingHistoriesTabs from "./components/room/BookHistory";
+import AddUserForm from "./components/user/AddUser";
 import AddRoomForm from "./AddRoom";
-import LoginForm from "./Login";
-import UserProfileForm from "./UserProfile";
-import EditUserForm from "./EditUser";
-import BookingForm from "./Booking";
+import LoginForm from "./components/Login";
+import UserProfileForm from "./components/user/UserProfile";
+import EditUserForm from "./components/user/EditUser";
+import BookingForm from "./components/room/Booking";
 import { useEffect } from "react";
 
 export default function MainContent({ setHasLogin }) {

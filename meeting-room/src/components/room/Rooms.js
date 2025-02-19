@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import AlarmIcon from "@mui/icons-material/Alarm";
 import { useEffect, useState } from "react";
-import roomsJson from "./data/RoomsData.json";
+import roomsJson from "../../data/RoomsData.json";
 import Tooltip from "@mui/material/Tooltip";
 
 export default function RoomsTable() {

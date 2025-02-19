@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
-import usersJson from "./data/UsersData.json";
+import usersJson from "../../data/UsersData.json";
 
 export default function UsersTable() {
   const navigate = useNavigate();
