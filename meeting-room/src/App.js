@@ -6,11 +6,21 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [hasLogin, setHasLogin] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loginUser = localStorage.getItem("loginUser");
+    if (loginUser) {
+      setHasLogin(true);
+    } else {
+      setHasLogin(false);
+    }
+  }, []);
 
   return (
     <div className="App">
+      {/* {hasLogin && } */}
       <ResponsiveAppBar />
       <MainContent></MainContent>
     </div>

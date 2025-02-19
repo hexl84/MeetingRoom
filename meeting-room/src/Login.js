@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid2";
+import Container from "@mui/material/Container";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -72,48 +73,39 @@ export default function LoginForm() {
   };
 
   return (
-    // <Box sx={{ flexGrow: 1 }}>
-    //   <Grid container spacing={2}>
-    //     <Grid xs={4}>
-    //       <Paper sx={{ textAlign: "center" }}></Paper>
-    //     </Grid>
-    //     <Grid xs={8}>
-    //       <Paper sx={{ textAlign: "center" }}></Paper>
-    //     </Grid>
-    //     <Grid xs={4}>
-    //       <Paper sx={{ textAlign: "center" }}></Paper>
-    //     </Grid>
-    //   </Grid>
-    // </Box>
-
-    <form autoComplete="off" onSubmit={handleSubmit}>
-      <h1>Meeting Room</h1>
-      <div>
-        <TextField
-          required
-          fullWidth
-          id="standard-basic"
-          label="Email"
-          variant="standard"
-          name="email"
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          fullWidth
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          name="password"
-          onChange={handleChange}
-        />
-      </div>
-      <Button variant="contained" type="submit">
-        Login
-      </Button>
-    </form>
+    <Container maxWidth="sm">
+      <Box sx={{ width: 800 }}>
+        <form autoComplete="off" onSubmit={handleSubmit}>
+          <h1>Meeting Room</h1>
+          <div>
+            <TextField
+              required
+              fullWidth
+              id="standard-basic"
+              label="Email"
+              name="email"
+              sx={{ mt: 2 }}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <TextField
+              required
+              fullWidth
+              id="outlined-password-input"
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              name="password"
+              sx={{ mt: 2 }}
+              onChange={handleChange}
+            />
+          </div>
+          <Button variant="contained" type="submit" sx={{ mt: 2 }}>
+            Login
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 }
