@@ -1,6 +1,7 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -39,66 +40,74 @@ export default function AddUserForm() {
   };
 
   return (
-    <form
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-      onReset={handleReset}
-    >
-      <h1>Add User</h1>
-      <div>
-        <TextField
-          fullWidth
-          id="standard-basic"
-          label="Name"
-          variant="standard"
-          name="name"
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <TextField
-          fullWidth
-          id="standard-basic"
-          label="Email"
-          variant="standard"
-          name="email"
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <TextField
-          fullWidth
-          id="standard-basic"
-          label="Phone"
-          variant="standard"
-          name="phone"
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Role</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={formData.role}
-            label="Role"
-            name="role"
-            onChange={handleChange}
-          >
-            <MenuItem value={1}>Admin</MenuItem>
-            <MenuItem value={2}>Normal</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
+    <Container maxWidth="sm">
+      <Box sx={{ width: 800 }}>
+        <form
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          onReset={handleReset}
+        >
+          <h1>Add User</h1>
+          <div>
+            <TextField
+              fullWidth
+              id="standard-basic"
+              label="Name"
+              variant="standard"
+              name="name"
+              sx={{ mb: 2 }}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <TextField
+              fullWidth
+              id="standard-basic"
+              label="Email"
+              variant="standard"
+              name="email"
+              sx={{ mb: 2 }}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <TextField
+              fullWidth
+              id="standard-basic"
+              label="Phone"
+              variant="standard"
+              name="phone"
+              sx={{ mb: 2 }}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Role</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={formData.role}
+                label="Role"
+                name="role"
+                sx={{ mb: 2 }}
+                onChange={handleChange}
+              >
+                <MenuItem value={1}>Admin</MenuItem>
+                <MenuItem value={2}>Normal</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
 
-      <Button variant="contained" type="submit">
-        Save
-      </Button>
-      <Button variant="contained" type="reset">
-        Cancel
-      </Button>
-    </form>
+          <Button variant="contained" type="submit">
+            Save
+          </Button>
+          <Button variant="contained" type="reset">
+            Cancel
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 }
