@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UsersTable from "./Users";
 import React from "react";
 import RoomsTable from "./Rooms";
@@ -9,12 +10,24 @@ import LoginForm from "./Login";
 import UserProfileForm from "./UserProfile";
 import EditUserForm from "./EditUser";
 import BookingForm from "./Booking";
+import { useEffect } from "react";
 
-export default function MainContent() {
+export default function MainContent({ setHasLogin }) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const loginUser = localStorage.getItem("loginUser");
+    if (!loginUser) {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <div>
       <Routes>
-        <Route path="/login" element={<LoginForm />}></Route>
+        <Route
+          path="/login"
+          element={<LoginForm setHasLogin={setHasLogin} />}
+        ></Route>
         <Route path="/users" element={<UsersTable />}></Route>
         <Route path="/add-user" element={<AddUserForm />}></Route>
         <Route path="/edit-user/:id" element={<EditUserForm />}></Route>

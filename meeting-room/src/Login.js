@@ -4,13 +4,11 @@ import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid2";
 import Container from "@mui/material/Container";
 
-export default function LoginForm() {
+export default function LoginForm({ setHasLogin }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -33,10 +31,9 @@ export default function LoginForm() {
     const loginUser = localStorage.getItem("loginUser");
     if (loginUser) {
       localStorage.removeItem("loginUser");
+      setHasLogin(false);
     }
   }, []);
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,12 +59,14 @@ export default function LoginForm() {
       );
       if (res) {
         localStorage.setItem("loginUser", JSON.stringify(res));
+        setHasLogin(true);
       }
 
       navigate("/rooms");
     } catch (error) {
       console.error("Error posting data:", error);
       localStorage.setItem("loginUser", JSON.stringify(adminUser));
+      setHasLogin(true);
       navigate("/rooms");
     }
   };
