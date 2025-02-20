@@ -1,5 +1,5 @@
 import "./App.css";
-import ResponsiveAppBar from "./AppBar";
+import ResponsiveAppBar from "./components/AppBar";
 import MainContent from "./MainContent";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
