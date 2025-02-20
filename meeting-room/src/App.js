@@ -6,22 +6,22 @@ import { useNavigate } from "react-router-dom";
 import * as React from "react";
 
 function App() {
-  const [hasLogin, setHasLogin] = useState(false);
   const navigate = useNavigate();
+  const [loginUser, setLoginUser] = useState(null);
 
   useEffect(() => {
-    const loginUser = localStorage.getItem("loginUser");
-    if (loginUser) {
-      setHasLogin(true);
+    const currentLoginUser = localStorage.getItem("loginUser");
+    if (currentLoginUser) {
+      setLoginUser(currentLoginUser);
     } else {
-      setHasLogin(false);
+      setLoginUser(currentLoginUser);
     }
   }, []);
 
   return (
     <div className="App">
-      {hasLogin && <ResponsiveAppBar />}
-      <MainContent setHasLogin={setHasLogin} />
+      {loginUser && <ResponsiveAppBar />}
+      <MainContent setLoginUser={setLoginUser} />
     </div>
   );
 }

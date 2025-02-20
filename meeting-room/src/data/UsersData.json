@@ -1,7 +1,8 @@
 [
-    {"id":1, "name":"Zhangsan", "phone": "15912345678", "email": "zhangsan@mail.com", "roleId": 2, "roleName":"Normal"},
-    {"id":2, "name":"Lisi", "phone":"15312345678", "email": "lisi@mail.com", "roleId": 2,"roleName":"Normal"},
+    {"id":1, "name":"admin", "phone": "15912345678", "email": "admin@mail.com", "roleId": 1, "roleName":"Admin"},
+    {"id":2, "name":"Lisi", "phone":"15312345678", "email": "test@mail.com", "roleId": 2,"roleName":"Normal"},
     {"id":3, "name":"Wangwu", "phone":"15778961234", "email": "wangwu@mail.com", "roleId": 2,"roleName":"Normal"},
     {"id":4, "name":"Guanyu", "phone":"17745467879", "email": "guanyu@mail.com", "roleId": 2,"roleName":"Normal"},
-    {"id":5, "name":"Machao", "phone":"17812124545", "email": "machao@mail.com", "roleId": 2, "roleName":"Normal"}
+    {"id":5, "name":"Machao", "phone":"17812124545", "email": "machao@mail.com", "roleId": 2, "roleName":"Normal"},
+    {"id":6, "name":"Zhangsan", "phone": "15912378678", "email": "zhangsan@mail.com", "roleId": 2, "roleName":"Normal"}
 ]

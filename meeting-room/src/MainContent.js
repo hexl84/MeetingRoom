@@ -11,8 +11,9 @@ import UserProfileForm from "./components/user/UserProfile";
 import EditUserForm from "./components/user/EditUser";
 import BookingForm from "./components/room/Booking";
 import { useEffect } from "react";
+import NoAuth from "./components/NoAuth";
 
-export default function MainContent({ setHasLogin }) {
+export default function MainContent({ setLoginUser }) {
   const navigate = useNavigate();
   useEffect(() => {
     const loginUser = localStorage.getItem("loginUser");
@@ -26,7 +27,7 @@ export default function MainContent({ setHasLogin }) {
       <Routes>
         <Route
           path="/login"
-          element={<LoginForm setHasLogin={setHasLogin} />}
+          element={<LoginForm setLoginUser={setLoginUser} />}
         ></Route>
         <Route path="/users" element={<UsersTable />}></Route>
         <Route path="/add-user" element={<AddUserForm />}></Route>
@@ -41,6 +42,7 @@ export default function MainContent({ setHasLogin }) {
           element={<BookingHistoriesTabs />}
         ></Route>
         <Route path="/" element={<Navigate to="/login" />}></Route>
+        <Route path="/401" element={<NoAuth />}></Route>
       </Routes>
     </div>
   );

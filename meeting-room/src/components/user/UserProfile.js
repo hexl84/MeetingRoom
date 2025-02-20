@@ -37,12 +37,12 @@ function UserProfileForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    navigate("/users");
+    navigate("/rooms");
   };
 
   const handleCancel = (e) => {
     e.preventDefault();
-    navigate("/users");
+    navigate("/rooms");
   };
 
   return (
@@ -58,6 +58,7 @@ function UserProfileForm() {
               label="Name"
               variant="standard"
               name="name"
+              value={formData.name}
               sx={{ mb: 2 }}
               onChange={handleChange}
             />
@@ -70,6 +71,7 @@ function UserProfileForm() {
               label="Email"
               variant="standard"
               name="email"
+              value={formData.email}
               sx={{ mb: 2 }}
               onChange={handleChange}
             />
@@ -82,6 +84,7 @@ function UserProfileForm() {
               label="Phone"
               variant="standard"
               name="phone"
+              value={formData.phone}
               sx={{ mb: 2 }}
               onChange={handleChange}
             />
@@ -92,9 +95,10 @@ function UserProfileForm() {
               id="standard-basic"
               label="Role"
               variant="standard"
-              name="role"
+              name="roleName"
+              value={formData.roleName}
               sx={{ mb: 2 }}
-              disabled
+              aria-readonly
             />
           </div>
 

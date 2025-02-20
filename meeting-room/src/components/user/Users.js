@@ -11,10 +11,20 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import usersJson from "../../data/UsersData.json";
+import { useState, useEffect } from "react";
 
 export default function UsersTable() {
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const rows = usersJson;
+  useEffect(() => {
+    const currentLoginUser = localStorage.getItem("loginUser");
+    if (currentLoginUser && currentLoginUser.roleId === 1) {
+      setIsAdmin(true);
+    } else {
+      navigate("/401");
+    }
+  }, []);
 
   const handleClickAdd = () => {
     navigate("/add-user");
@@ -27,9 +37,12 @@ export default function UsersTable() {
   return (
     <div>
       <h1>Users</h1>
-      <Button variant="contained" onClick={() => handleClickAdd()}>
-        Add
-      </Button>
+      {isAdmin && (
+        <Button variant="contained" onClick={() => handleClickAdd()}>
+          Add
+        </Button>
+      )}
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

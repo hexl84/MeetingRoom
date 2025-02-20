@@ -6,32 +6,20 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import users from "../data/UsersData.json";
 
-export default function LoginForm({ setHasLogin }) {
+export default function LoginForm({ setLoginUser }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const adminUser = {
-    id: 1,
-    email: "admin@qq.com",
-    phone: "12355667788",
-    role: "Admin",
-    roleId: 1,
-  };
-  const normalUser = {
-    id: 2,
-    email: "test@qq.com",
-    phone: "15378964545",
-    role: "Normal",
-  };
 
   useEffect(() => {
     const loginUser = localStorage.getItem("loginUser");
     if (loginUser) {
       localStorage.removeItem("loginUser");
-      setHasLogin(false);
+      setLoginUser(null);
     }
   }, []);
 
@@ -59,14 +47,20 @@ export default function LoginForm({ setHasLogin }) {
       );
       if (res) {
         localStorage.setItem("loginUser", JSON.stringify(res));
-        setHasLogin(true);
+        setLoginUser(res);
       }
 
       navigate("/rooms");
     } catch (error) {
       console.error("Error posting data:", error);
-      localStorage.setItem("loginUser", JSON.stringify(adminUser));
-      setHasLogin(true);
+      const matchUser = users.find((x) => x.email === formData.email);
+      if (!matchUser) {
+        alert("User not found");
+        setLoginUser(null);
+        return;
+      }
+      localStorage.setItem("loginUser", JSON.stringify(matchUser));
+      setLoginUser(matchUser);
       navigate("/rooms");
     }
   };
@@ -100,9 +94,16 @@ export default function LoginForm({ setHasLogin }) {
               onChange={handleChange}
             />
           </div>
-          <Button variant="contained" type="submit" sx={{ mt: 2 }}>
+          <Button variant="contained" type="submit" sx={{ mt: 2, mb: 6 }}>
             Login
           </Button>
+          <div sx={{ mt: 6 }}>
+            <span>
+              admin@mail.com / 123456 , admin user
+              <br />
+              test@mail.com / 123456 , normal user <br />
+            </span>
+          </div>
         </form>
       </Box>
     </Container>
