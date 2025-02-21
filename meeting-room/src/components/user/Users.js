@@ -18,7 +18,7 @@ export default function UsersTable() {
   const navigate = useNavigate();
   const rows = usersJson;
   useEffect(() => {
-    const currentLoginUser = localStorage.getItem("loginUser");
+    const currentLoginUser = JSON.parse(localStorage.getItem("loginUser"));
     if (currentLoginUser && currentLoginUser.roleId === 1) {
       setIsAdmin(true);
     } else {

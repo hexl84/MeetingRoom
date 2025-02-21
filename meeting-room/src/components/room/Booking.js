@@ -1,16 +1,6 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import AlarmIcon from "@mui/icons-material/Alarm";
 import { useEffect, useState } from "react";
 import periodJson from "../../data/PeriodData.json";
 import roomsJson from "../../data/RoomsData.json";
@@ -23,6 +13,16 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react'
+import {
+  createViewDay,
+  createViewMonthAgenda,
+  createViewMonthGrid,
+  createViewWeek,
+} from '@schedule-x/calendar'
+import { createEventsServicePlugin } from '@schedule-x/events-service'
+ 
+import '@schedule-x/theme-default/dist/index.css'
 
 function BookingForm() {
   const navigate = useNavigate();
@@ -35,7 +35,24 @@ function BookingForm() {
   const [end, setEnd] = useState(0);
   const [bookingDate, setBookingDate] = useState(dayjs());
 
+  const eventsService = useState(() => createEventsServicePlugin())[0]
+ 
+  const calendar = useCalendarApp({
+    views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
+    events: [
+      {
+        id: '1',
+        title: 'Event 1',
+        start: '2023-12-16',
+        end: '2023-12-16',
+      },
+    ],
+    plugins: [eventsService]
+  })
+
   useEffect(() => {
+    eventsService.getAll();
+    
     const getPeriod = async () => {
       try {
         setCurrentRoom(roomsJson.find((room) => room.id == id));
@@ -126,6 +143,9 @@ function BookingForm() {
           Cancel
         </Button>
       </div>
+      <div>
+      <ScheduleXCalendar calendarApp={calendar} />
+    </div>
     </div>
   );
 }
