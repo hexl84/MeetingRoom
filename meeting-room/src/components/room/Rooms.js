@@ -36,24 +36,42 @@ export default function RoomsTable() {
     <div>
       <h1>Rooms</h1>
       {loginUser.roleId === 1 ? (
-        <Button variant="contained" onClick={() => handleClickAdd()}>
+        <Button
+          variant="contained"
+          onClick={() => handleClickAdd()}
+          sx={{ float: "right", mr: 2 }}
+        >
           Add
         </Button>
       ) : (
         ""
       )}
 
-      <TableContainer component={Paper}>
+      <Paper sx={{ paddingLeft: 2, paddingRight: 2 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="left">Room Capacity</TableCell>
-              <TableCell align="left">Status</TableCell>
-              <TableCell align="left">Type</TableCell>
-              <TableCell align="left">Period</TableCell>
-              <TableCell align="left">Comment</TableCell>
-              <TableCell align="left">Action</TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Name
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Room Capacity
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Status
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Type
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Period
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Comment
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -92,7 +110,7 @@ export default function RoomsTable() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </Paper>
     </div>
   );
 }

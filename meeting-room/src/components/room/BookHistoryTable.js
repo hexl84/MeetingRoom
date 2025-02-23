@@ -87,16 +87,28 @@ export default function BookHistoryTable({ tabIndex, currentUser }) {
 
   return (
     <div>
-      <TableContainer component={Paper}>
+      <Paper sx={{ paddingLeft: 2, paddingRight: 2 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="left">Room</TableCell>
-              <TableCell align="left">Period</TableCell>
-              <TableCell align="left">Title</TableCell>
-              <TableCell align="left">Participants</TableCell>
-              <TableCell align="left">Action</TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Date
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Room
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Period
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Title
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Participants
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -117,7 +129,7 @@ export default function BookHistoryTable({ tabIndex, currentUser }) {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </Paper>
     </div>
   );
 }

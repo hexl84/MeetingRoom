@@ -38,20 +38,34 @@ export default function UsersTable() {
     <div>
       <h1>Users</h1>
       {isAdmin && (
-        <Button variant="contained" onClick={() => handleClickAdd()}>
+        <Button
+          variant="contained"
+          onClick={() => handleClickAdd()}
+          sx={{ float: "right", mr: 2 }}
+        >
           Add
         </Button>
       )}
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Paper sx={{ paddingLeft: 2, paddingRight: 2 }}>
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="left">Email</TableCell>
-              <TableCell align="left">Phone</TableCell>
-              <TableCell align="left">Role</TableCell>
-              <TableCell align="left">Action</TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Name
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Email
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Phone
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Role
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -78,7 +92,7 @@ export default function UsersTable() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </Paper>
     </div>
   );
 }
