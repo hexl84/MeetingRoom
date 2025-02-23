@@ -12,23 +12,11 @@ import { useEffect, useState } from "react";
 import periodJson from "../../data/PeriodData.json";
 import roomsJson from "../../data/RoomsData.json";
 import dayjs from "dayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useCalendarApp, ScheduleXCalendar } from "@schedule-x/react";
-import {
-  viewWeek,
-  viewDay,
-  viewMonthGrid,
-  viewMonthAgenda,
-  createViewDay,
-  createViewMonthAgenda,
-  createViewMonthGrid,
-  createViewWeek,
-} from "@schedule-x/calendar";
+import { viewWeek, viewDay } from "@schedule-x/calendar";
 import { createEventsServicePlugin } from "@schedule-x/events-service";
 import { createEventModalPlugin } from "@schedule-x/event-modal";
-import { createDragAndDropPlugin } from "@schedule-x/drag-and-drop";
+import { v4 as uuidv4 } from "uuid";
 
 import "@schedule-x/theme-default/dist/index.css";
 
@@ -54,6 +42,24 @@ function BookingForm() {
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
   const [bookingDate, setBookingDate] = useState(dayjs());
+  const [title, setTitle] = useState("");
+  const [participants, setParticipants] = useState("");
+  const defaulEvents = [
+    {
+      id: "1",
+      title: "Event 1",
+      start: "2025-02-23 10:00",
+      end: "2025-02-23 11:00",
+    },
+    {
+      id: "2",
+      title: "Event 2",
+      start: "2025-02-23 03:00",
+      end: "2025-02-23 05:00",
+    },
+  ];
+
+  const [events, setEvents] = useState([defaulEvents]);
 
   const [open, setOpen] = React.useState(false);
   const handleOpenModal = () => setOpen(true);
@@ -66,21 +72,8 @@ function BookingForm() {
     selectedDate: "2025-02-23",
     defaultView: viewWeek.name,
     views: [viewDay, viewWeek],
-    plugins: [createEventModalPlugin(), createDragAndDropPlugin()],
-    events: [
-      {
-        id: "1",
-        title: "Event 1",
-        start: "2025-02-23 10:00",
-        end: "2025-02-23 11:00",
-      },
-      {
-        id: "2",
-        title: "Event 2",
-        start: "2025-02-23 03:00",
-        end: "2025-02-23 05:00",
-      },
-    ],
+    plugins: [createEventModalPlugin(), eventsService],
+    events: defaulEvents,
     callbacks: {
       /**
        * Is called when clicking somewhere in the time grid of a week or day view
@@ -88,6 +81,7 @@ function BookingForm() {
       onDoubleClickDateTime(dateTime) {
         console.log("onDoubleClickDateTime", dateTime); // e.g. 2024-01-01 12:37
         handleOpenModal(dateTime);
+        setBookingDate(dayjs(dateTime));
       },
     },
   });
@@ -110,14 +104,21 @@ function BookingForm() {
   }, [id]);
 
   const handleStartChange = (e) => {
-    console.log(e.target.value);
     setStart(e.target.value);
     setEndPeriods(periodJson.filter((period) => period.id > e.target.value));
   };
   const handleEndChange = (e) => {
-    console.log(e.target.value);
     setEnd(e.target.value);
   };
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleParticipantsChange = (e) => {
+    setParticipants(e.target.value);
+  };
+
   const handleCancelClick = (e) => {
     e.preventDefault();
     setOpen(false);
@@ -128,6 +129,27 @@ function BookingForm() {
   };
   const handleSaveClick = (e) => {
     e.preventDefault();
+
+    const startHour = startPeriods.find(
+      (period) => period.id == start
+    ).timestamp;
+    const endHour = endPeriods.find((period) => period.id == end).timestamp;
+
+    const newEvent = {
+      id: uuidv4(),
+      title: title,
+      participants: participants,
+      start: bookingDate.format("YYYY-MM-DD") + " " + startHour,
+      end: bookingDate.format("YYYY-MM-DD") + " " + endHour,
+    };
+
+    console.log(newEvent);
+    setEvents([...events, newEvent]);
+    eventsService.add(newEvent);
+    const test1 = eventsService.getAll();
+    eventsService.set(defaulEvents);
+    const test2 = eventsService.getAll();
+
     setOpen(false);
   };
 
@@ -155,6 +177,7 @@ function BookingForm() {
               name="title"
               sx={{ mb: 2 }}
               required
+              onChange={handleTitleChange}
             />
           </div>
           <div>
@@ -165,6 +188,7 @@ function BookingForm() {
               variant="standard"
               name="participants"
               sx={{ mb: 2 }}
+              onChange={handleParticipantsChange}
             />
           </div>
           <InputLabel id="select-start-label">Start</InputLabel>
