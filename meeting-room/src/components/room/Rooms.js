@@ -14,6 +14,7 @@ import AlarmIcon from "@mui/icons-material/Alarm";
 import { useEffect, useState } from "react";
 import roomsJson from "../../data/RoomsData.json";
 import Tooltip from "@mui/material/Tooltip";
+import { ClockIcon } from "@mui/x-date-pickers";
 
 export default function RoomsTable() {
   const navigate = useNavigate();
@@ -102,7 +103,7 @@ export default function RoomsTable() {
                       color="secondary"
                       onClick={() => handleClickBooking(row)}
                     >
-                      <AlarmIcon />
+                      <ClockIcon />
                     </IconButton>
                   </Tooltip>
                 </TableCell>
