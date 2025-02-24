@@ -64,6 +64,22 @@ function BookingForm() {
   const [open, setOpen] = React.useState(false);
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
+  // const handleOpenEditModal = (event) => {
+  //   setOpen(true);
+  //   setTitle(event.title);
+  //   setParticipants(event.participants);
+  //   const startHour = dayjs(event.start).format("HH:mm");
+  //   const endHour = dayjs(event.end).format("HH:mm");
+
+  //   const startIndex = periodJson.find(
+  //     (period) => period.timestamp === startHour
+  //   ).id;
+  //   const endIndex = periodJson.find(
+  //     (period) => period.timestamp === endHour
+  //   ).id;
+  //   setStart(startIndex);
+  //   setEnd(endIndex);
+  // };
 
   const eventsService = useState(() => createEventsServicePlugin())[0];
 
@@ -72,8 +88,8 @@ function BookingForm() {
     selectedDate: dayjs().format("YYYY-MM-DD"),
     defaultView: viewWeek.name,
     dayBoundaries: {
-      start: '09:00',
-      end: '18:00',
+      start: "09:00",
+      end: "18:00",
     },
     views: [viewDay, viewWeek],
     plugins: [createEventModalPlugin(), eventsService],
@@ -84,9 +100,13 @@ function BookingForm() {
        * */
       onDoubleClickDateTime(dateTime) {
         console.log("onDoubleClickDateTime", dateTime); // e.g. 2024-01-01 12:37
-        handleOpenModal(dateTime);
+        handleOpenModal();
         setBookingDate(dayjs(dateTime));
       },
+      // onDoubleClickEvent(event) {
+      //   console.log("onDoubleClickEvent", event);
+      //   handleOpenEditModal(event);
+      // },
     },
   });
 
@@ -148,14 +168,6 @@ function BookingForm() {
     };
 
     calendar.events.add(newEvent);
-
-    // console.log(newEvent);
-    // setEvents([...events, newEvent]);
-    // eventsService.add(newEvent);
-    // const test1 = eventsService.getAll();
-    // eventsService.set(defaulEvents);
-    // const test2 = eventsService.getAll();
-
     setOpen(false);
   };
 
@@ -181,6 +193,7 @@ function BookingForm() {
               label="Title"
               variant="standard"
               name="title"
+              value={title}
               sx={{ mb: 2 }}
               required
               onChange={handleTitleChange}
@@ -193,6 +206,7 @@ function BookingForm() {
               label="Participants"
               variant="standard"
               name="participants"
+              value={participants}
               sx={{ mb: 2 }}
               onChange={handleParticipantsChange}
             />

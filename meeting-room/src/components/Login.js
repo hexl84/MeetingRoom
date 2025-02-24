@@ -11,8 +11,8 @@ import users from "../data/UsersData.json";
 export default function LoginForm({ setLoginUser }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "admin@mail.com",
+    password: "123456",
   });
 
   useEffect(() => {
@@ -78,6 +78,7 @@ export default function LoginForm({ setLoginUser }) {
               label="Email"
               name="email"
               sx={{ mt: 2 }}
+              value={formData.email}
               onChange={handleChange}
             />
           </div>
@@ -91,6 +92,7 @@ export default function LoginForm({ setLoginUser }) {
               autoComplete="current-password"
               name="password"
               sx={{ mt: 2 }}
+              value={formData.password}
               onChange={handleChange}
             />
           </div>
