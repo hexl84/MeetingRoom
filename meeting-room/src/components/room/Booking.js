@@ -48,18 +48,18 @@ function BookingForm() {
     {
       id: "1",
       title: "Event 1",
-      start: "2025-02-23 10:00",
-      end: "2025-02-23 11:00",
+      start: "2025-02-24 10:00",
+      end: "2025-02-24 11:00",
     },
     {
       id: "2",
       title: "Event 2",
-      start: "2025-02-23 03:00",
-      end: "2025-02-23 05:00",
+      start: "2025-02-24 03:00",
+      end: "2025-02-24 05:00",
     },
   ];
 
-  const [events, setEvents] = useState([defaulEvents]);
+  const [events, setEvents] = useState(defaulEvents);
 
   const [open, setOpen] = React.useState(false);
   const handleOpenModal = () => setOpen(true);
@@ -69,11 +69,15 @@ function BookingForm() {
 
   const calendar = useCalendarApp({
     locale: "en-US",
-    selectedDate: "2025-02-23",
+    selectedDate: dayjs().format("YYYY-MM-DD"),
     defaultView: viewWeek.name,
+    dayBoundaries: {
+      start: '09:00',
+      end: '18:00',
+    },
     views: [viewDay, viewWeek],
     plugins: [createEventModalPlugin(), eventsService],
-    events: defaulEvents,
+    events: events,
     callbacks: {
       /**
        * Is called when clicking somewhere in the time grid of a week or day view
@@ -143,12 +147,14 @@ function BookingForm() {
       end: bookingDate.format("YYYY-MM-DD") + " " + endHour,
     };
 
-    console.log(newEvent);
-    setEvents([...events, newEvent]);
-    eventsService.add(newEvent);
-    const test1 = eventsService.getAll();
-    eventsService.set(defaulEvents);
-    const test2 = eventsService.getAll();
+    calendar.events.add(newEvent);
+
+    // console.log(newEvent);
+    // setEvents([...events, newEvent]);
+    // eventsService.add(newEvent);
+    // const test1 = eventsService.getAll();
+    // eventsService.set(defaulEvents);
+    // const test2 = eventsService.getAll();
 
     setOpen(false);
   };
