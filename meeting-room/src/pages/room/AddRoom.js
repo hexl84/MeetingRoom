@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import roomsJson from "./data/RoomsData.json";
+import roomsJson from "../../data/RoomsData.json";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 

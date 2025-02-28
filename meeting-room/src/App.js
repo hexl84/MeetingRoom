@@ -1,6 +1,6 @@
 import "./App.css";
 import ResponsiveAppBar from "./components/AppBar";
-import MainContent from "./MainContent";
+import RouteConfig from "./routes/Route";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as React from "react";
@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App">
       {loginUser && <ResponsiveAppBar />}
-      <MainContent setLoginUser={setLoginUser} />
+      <RouteConfig setLoginUser={setLoginUser} />
     </div>
   );
 }

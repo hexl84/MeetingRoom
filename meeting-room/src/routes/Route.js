@@ -1,19 +1,19 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import UsersTable from "./components/user/Users";
 import React from "react";
-import RoomsTable from "./components/room/Rooms";
-import BookingHistoriesTabs from "./components/room/BookHistory";
-import AddUserForm from "./components/user/AddUser";
-import AddRoomForm from "./AddRoom";
-import LoginForm from "./components/Login";
-import UserProfileForm from "./components/user/UserProfile";
-import EditUserForm from "./components/user/EditUser";
-import BookingForm from "./components/room/Booking";
+import UsersTable from "../pages/user/Users";
+import AddUserForm from "../pages/user/AddUser";
+import EditUserForm from "../pages/user/EditUser";
+import UserProfileForm from "../pages/user/UserProfile";
+import RoomsTable from "../pages/room/Rooms";
+import AddRoomForm from "../pages/room/AddRoom";
+import BookingForm from "../pages/room/Booking";
+import BookingHistoriesTabs from "../pages/history/BookHistory";
+import LoginForm from "../pages/login/Login";
 import { useEffect } from "react";
-import NoAuth from "./components/NoAuth";
+import NoAuth from "../components/NoAuth";
 
-export default function MainContent({ setLoginUser }) {
+export default function RouteConfig({ setLoginUser }) {
   const navigate = useNavigate();
   useEffect(() => {
     const loginUser = localStorage.getItem("loginUser");

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import users from "../data/UsersData.json";
+import users from "../../data/UsersData.json";
 
 export default function LoginForm({ setLoginUser }) {
   const navigate = useNavigate();
