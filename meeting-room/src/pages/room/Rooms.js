@@ -2,7 +2,6 @@ import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
@@ -10,7 +9,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
-import AlarmIcon from "@mui/icons-material/Alarm";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import roomsJson from "../../data/RoomsData.json";
 import Tooltip from "@mui/material/Tooltip";
@@ -27,6 +26,10 @@ export default function RoomsTable() {
 
   const handleClickEdit = (room) => {
     navigate("/edit-room/" + room.id);
+  };
+
+  const handleClickDelete = (room) => {
+    // navigate("/edit-room/" + room.id);
   };
 
   const handleClickBooking = (room) => {
@@ -96,6 +99,14 @@ export default function RoomsTable() {
                       onClick={() => handleClickEdit(row)}
                     >
                       <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Edit room">
+                    <IconButton
+                      color="secondary"
+                      onClick={() => handleClickDelete(row)}
+                    >
+                      <DeleteIcon />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Book room">
