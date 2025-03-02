@@ -80,11 +80,11 @@ function BookingModal(props) {
 
   const handleStartChange = (e) => {
     // setStart(e.target.value);
-    setEvent({ ...event, ["start"]: e.target.value });
+    setEvent({ ...event, ["startId"]: e.target.value });
     setEndPeriods(periodJson.filter((period) => period.id > e.target.value));
   };
   const handleEndChange = (e) => {
-    setEvent({ ...event, ["end"]: e.target.value });
+    setEvent({ ...event, ["endId"]: e.target.value });
   };
 
   const handleTitleChange = (e) => {
@@ -105,25 +105,27 @@ function BookingModal(props) {
 
   const handleDeleteClick = (e) => {
     e.preventDefault();
-    onDelete();
+    onDelete(event);
   };
 
   const handleSaveClick = (e) => {
     e.preventDefault();
 
     const startHour = startPeriods.find(
-      (period) => period.id == event.start
+      (period) => period.id == event.startId
     ).timestamp;
     const endHour = endPeriods.find(
-      (period) => period.id == event.end
+      (period) => period.id == event.endId
     ).timestamp;
 
     const newEvent = {
-      id: uuidv4(),
+      id: event.id,
       title: event.title,
       participants: event.participants,
       start: bookingDate.format("YYYY-MM-DD") + " " + startHour,
       end: bookingDate.format("YYYY-MM-DD") + " " + endHour,
+      startId: event.startId,
+      endId: event.endId,
     };
     setEvent(newEvent);
     onSave(newEvent);
@@ -168,9 +170,9 @@ function BookingModal(props) {
           fullWidth
           labelId="select-start-label"
           id="start-select"
-          value={event?.start}
+          value={event?.startId}
           label="Start"
-          name="event.start"
+          name="start"
           required
           onChange={handleStartChange}
         >
@@ -185,9 +187,9 @@ function BookingModal(props) {
           fullWidth
           labelId="select-end-label"
           id="end-select"
-          value={event?.end}
+          value={event?.endId}
           label="End"
-          name="event.end"
+          name="end"
           required
           onChange={handleEndChange}
         >

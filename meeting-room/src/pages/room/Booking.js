@@ -19,7 +19,6 @@ function BookingForm() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [currentRoom, setCurrentRoom] = useState();
-
   const [bookingDate, setBookingDate] = useState(dayjs());
   const defaulEvents = [
     {
@@ -27,12 +26,16 @@ function BookingForm() {
       title: "Event 1",
       start: "2025-02-24 10:00",
       end: "2025-02-24 11:00",
+      startId: 3,
+      endId: 5,
     },
     {
       id: "2",
       title: "Event 2",
-      start: "2025-02-24 03:00",
-      end: "2025-02-24 05:00",
+      start: "2025-02-24 09:00",
+      end: "2025-02-24 10:00",
+      startId: 1,
+      endId: 3,
     },
   ];
 
@@ -40,23 +43,7 @@ function BookingForm() {
   const [currentEvent, setCurrentEvent] = useState(null);
 
   const [open, setOpen] = React.useState(false);
-
-  // const handleOpenEditModal = (event) => {
-  //   setOpen(true);
-  //   setTitle(event.title);
-  //   setParticipants(event.participants);
-  //   const startHour = dayjs(event.start).format("HH:mm");
-  //   const endHour = dayjs(event.end).format("HH:mm");
-
-  //   const startIndex = periodJson.find(
-  //     (period) => period.timestamp === startHour
-  //   ).id;
-  //   const endIndex = periodJson.find(
-  //     (period) => period.timestamp === endHour
-  //   ).id;
-  //   setStart(startIndex);
-  //   setEnd(endIndex);
-  // };
+  const [isAddEvent, setIsAddEvent] = useState(true);
 
   const eventsService = useState(() => createEventsServicePlugin())[0];
 
@@ -76,21 +63,27 @@ function BookingForm() {
        * Is called when clicking somewhere in the time grid of a week or day view
        * */
       onDoubleClickDateTime(dateTime) {
-        // console.log("onDoubleClickDateTime", dateTime); // e.g. 2024-01-01 12:37
         setBookingDate(dayjs(dateTime));
+        setIsAddEvent(true);
         setCurrentEvent({
+          id: uuidv4(),
           title: "",
           participants: "",
           start: dateTime,
           end: dateTime,
+          startId: 0,
+          endId: 0,
         });
         console.log(currentEvent);
         setOpen(true);
       },
-      // onDoubleClickEvent(event) {
-      //   console.log("onDoubleClickEvent", event);
-      //   handleOpenEditModal(event);
-      // },
+      onDoubleClickEvent(event) {
+        // console.log("onDoubleClickEvent", event);
+        setBookingDate(dayjs(event.start));
+        setIsAddEvent(false);
+        setCurrentEvent(event);
+        setOpen(true);
+      },
     },
   });
 
@@ -100,16 +93,20 @@ function BookingForm() {
   };
 
   const handleBookingModalDelete = (event) => {
-    calendar.events.remove(event.Id);
+    calendar.events.remove(event.id);
     setCurrentEvent(null);
     setOpen(false);
   };
 
   const handleBookingModalSave = (event) => {
-    calendar.events.add(event);
+    if (isAddEvent) {
+      calendar.events.add(event);
+    } else {
+      calendar.events.update(event);
+    }
+
     setCurrentEvent(null);
     setOpen(false);
-    // event = {};
   };
 
   useEffect(() => {
