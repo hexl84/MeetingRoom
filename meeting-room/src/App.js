@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      {loginUser && <ResponsiveAppBar />}
+      {loginUser && <ResponsiveAppBar loginUser={loginUser} />}
       <RouteConfig setLoginUser={setLoginUser} />
     </div>
   );

@@ -20,7 +20,7 @@ const pages = [
   { Name: "Book History", Url: "/booking-histories" },
 ];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ loginUser }) {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -103,16 +103,22 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElNav)}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page.Url}
-                  onClick={() => handleClickNavMenu(page.Url)}
-                >
-                  <Typography sx={{ textAlign: "center" }}>
-                    {page.Name}
-                  </Typography>
-                </MenuItem>
-              ))}
+              {pages
+                .filter((page) => {
+                  const isHidden =
+                    page.Name === "Users" && loginUser?.roleId !== 1;
+                  return !isHidden;
+                })
+                .map((page) => (
+                  <MenuItem
+                    key={page.Url}
+                    onClick={() => handleClickNavMenu(page.Url)}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      {page.Name}
+                    </Typography>
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
