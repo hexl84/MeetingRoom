@@ -2,11 +2,13 @@ import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useState, useEffect } from "react";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function createData(id, date, room, period, title, participants) {
   return { id, date, room, period, title, participants };
@@ -85,6 +87,10 @@ export default function BookHistoryTable({ tabIndex, currentUser }) {
     }
   }, [tabIndex]);
 
+  function handleClickCancel(history) {
+    console.log("Cancel booking:", history);
+  }
+
   return (
     <div>
       <Paper sx={{ paddingLeft: 2, paddingRight: 2 }}>
@@ -107,7 +113,7 @@ export default function BookHistoryTable({ tabIndex, currentUser }) {
                 Participants
               </TableCell>
               <TableCell align="left" sx={{ fontWeight: "bold" }}>
-                Action
+                {tabIndex === 0 && "Action"}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -124,7 +130,18 @@ export default function BookHistoryTable({ tabIndex, currentUser }) {
                 <TableCell align="left">{history.period}</TableCell>
                 <TableCell align="left">{history.title}</TableCell>
                 <TableCell align="left">{history.participants}</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left">
+                  {tabIndex === 0 && (
+                    <Tooltip title="Cancel book room">
+                      <IconButton
+                        color="secondary"
+                        onClick={() => handleClickCancel(history)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
