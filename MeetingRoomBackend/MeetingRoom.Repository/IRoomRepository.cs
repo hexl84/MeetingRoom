@@ -1,6 +1,6 @@
 ﻿namespace MeetingRoom.Repository
 {
-    public class Class1
+    public class IRoomRepository
     {
 
     }

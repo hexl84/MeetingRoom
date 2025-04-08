@@ -1,6 +1,6 @@
 @MeetingRoom.WebAPI_HostAddress = http://localhost:5069
 
-GET {{MeetingRoom.WebAPI_HostAddress}}/weatherforecast/
+GET {{MeetingRoom.WebAPI_HostAddress}}/user/
 Accept: application/json
 
 ###
