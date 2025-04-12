@@ -2,7 +2,7 @@
 
 namespace MeetingRoom.Repository
 {
-    public interface IRoomRepository : IRepository<Domain.Room>
+    public interface IUserRepository : IRepository<Domain.User>
     {
     }
 }

@@ -14,7 +14,7 @@ namespace MeetingRoom.Domain
         public string Phone { get; set; }
         public int RoleId { get; set; }
 
-        public Domain.User Create(string name, string email, string phone, int roleId)
+        public static Domain.User Create(string name, string email, string phone, int roleId)
         {
             var user = new User
             {

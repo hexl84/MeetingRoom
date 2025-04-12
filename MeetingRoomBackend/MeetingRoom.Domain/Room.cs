@@ -9,7 +9,7 @@
         public string Type { get; set; }
         public string Comment { get; set; }
 
-        public Domain.Room Create(string name, int capacity, string status, string type, string comment)
+        public static Domain.Room Create(string name, int capacity, string status, string type, string comment)
         {
             var room = new Room
             {
