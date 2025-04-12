@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingRoom.QueryService", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingRoom.DTO", "MeetingRoom.DTO\MeetingRoom.DTO.csproj", "{111904D5-4607-45C8-AE3F-20E720047D37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingRoom.Test", "MeetingRoom.Test\MeetingRoom.Test.csproj", "{AD44E83E-67E9-463C-82A0-3546B5CEBEBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{111904D5-4607-45C8-AE3F-20E720047D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{111904D5-4607-45C8-AE3F-20E720047D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{111904D5-4607-45C8-AE3F-20E720047D37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD44E83E-67E9-463C-82A0-3546B5CEBEBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD44E83E-67E9-463C-82A0-3546B5CEBEBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD44E83E-67E9-463C-82A0-3546B5CEBEBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD44E83E-67E9-463C-82A0-3546B5CEBEBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
