@@ -14,13 +14,8 @@ namespace MeetingRoom.Repository
         public DbSet<Domain.Room> Rooms { get; set; }
         public DbSet<Domain.User> Users { get; set; }
 
-        public string DbPath { get; }
-
         public MeetingRoomContext(DbContextOptions<MeetingRoomContext> options) : base(options)
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "MeetingRoom.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,8 +28,6 @@ namespace MeetingRoom.Repository
         // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite($"Data Source={DbPath}");
-
             options
             .UseAsyncSeeding(async (context, _, cancellationToken) =>
             {
@@ -45,15 +38,13 @@ namespace MeetingRoom.Repository
                     await context.Set<User>().AddAsync(adminUser);
                     await context.SaveChangesAsync();
                 }
-            })
-            .UseSeeding((context, _) =>
-            {
-                var sampleRoom = context.Set<Room>().FirstOrDefault(b => b.Name == "Room 1");
+
+                var sampleRoom = await context.Set<Room>().FirstOrDefaultAsync(b => b.Name == "Room 1");
                 if (sampleRoom == null)
                 {
                     sampleRoom = Room.Create("Room 1", 4, "Active", "Samll", "");
-                    context.Set<Room>().Add(sampleRoom);
-                    context.SaveChanges();
+                    await context.Set<Room>().AddAsync(sampleRoom);
+                    await context.SaveChangesAsync();
                 }
             });
         }

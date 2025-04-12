@@ -1,5 +1,7 @@
-﻿using MeetingRoom.DTO.Response;
+﻿using MeetingRoom.Domain;
+using MeetingRoom.DTO.Response;
 using MeetingRoom.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace MeetingRoom.QueryService
 {
@@ -26,19 +28,32 @@ namespace MeetingRoom.QueryService
                 .ToList();
         }
 
-        public UserResponse GetUserById(int id)
+        public async Task<UserResponse> GetUserByIdAsync(int id)
         {
-            return _context.Users
-                .Where(user => user.UserID == id)
-                .Select(user => new UserResponse
-                {
-                    UserId = user.UserID,
-                    Name = user.Name,
-                    Email = user.Email,
-                    Phone = user.Phone,
-                    RoleId = user.RoleId
-                })
-                .FirstOrDefault();
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(b => b.UserID == id);
+            if (user == null)
+                return null;
+
+            return new UserResponse
+            {
+                UserId = user.UserID,
+                Name = user.Name,
+                Email = user.Email,
+                Phone = user.Phone,
+                RoleId = user.RoleId
+            };
+
+            //return _context.Users
+            //    .Where(user => user.UserID == id)
+            //    .Select(user => new UserResponse
+            //    {
+            //        UserId = user.UserID,
+            //        Name = user.Name,
+            //        Email = user.Email,
+            //        Phone = user.Phone,
+            //        RoleId = user.RoleId
+            //    })
+            //    .FirstOrDefault();
         }
     }
 }

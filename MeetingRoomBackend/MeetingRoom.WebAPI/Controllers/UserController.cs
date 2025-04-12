@@ -3,11 +3,12 @@ using MeetingRoom.DTO.Request;
 using MeetingRoom.DTO.Response;
 using MeetingRoom.QueryService;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MeetingRoom.WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -28,10 +29,10 @@ namespace MeetingRoom.WebAPI.Controllers
             return _userQueryService.GetAllUsers();
         }
 
-        [HttpGet(Name = "GetUser")]
-        public UserResponse GetUser(int id)
+        [HttpGet("{id}")]
+        public async Task<UserResponse> GetUser(int id)
         {
-            return _userQueryService.GetUserById(id);
+            return await _userQueryService.GetUserByIdAsync(id);
         }
 
         [HttpPost(Name = "AddUser")]

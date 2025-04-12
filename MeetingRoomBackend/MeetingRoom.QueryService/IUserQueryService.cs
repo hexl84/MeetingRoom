@@ -4,7 +4,8 @@ namespace MeetingRoom.QueryService
 {
     public interface IUserQueryService
     {
-        UserResponse GetUserById(int id);
+        //UserResponse GetUserByIdAsync(int id);
+        Task<UserResponse> GetUserByIdAsync(int id);
         List<UserResponse> GetAllUsers();
     }
 }

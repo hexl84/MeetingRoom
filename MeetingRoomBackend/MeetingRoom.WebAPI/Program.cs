@@ -17,9 +17,6 @@ public class Program
 
         builder.Services.AddDbContext<MeetingRoomContext>(options =>
             options.UseSqlite(connectionString));
-        //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-        //CreateDbIfNotExists(builder);
 
         builder.Services.AddScoped<IRoomRepository, RoomRepository>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -57,22 +54,5 @@ public class Program
         app.Run();
     }
 
-    //private static void CreateDbIfNotExists(WebApplicationBuilder host)
-    //{
-    //    using (var scope = host.Services.CreateScope())
-    //    {
-    //        var services = scope.ServiceProvider;
-    //        try
-    //        {
-    //            var context = services.GetRequiredService<MeetingRoomContext>();
-    //            DbInitializer.Initialize(context);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            var logger = services.GetRequiredService<ILogger<Program>>();
-    //            logger.LogError(ex, "An error occurred creating the DB.");
-    //        }
-    //    }
-    //}
 }
 

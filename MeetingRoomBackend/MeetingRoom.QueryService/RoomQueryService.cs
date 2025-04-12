@@ -14,18 +14,23 @@ namespace MeetingRoom.QueryService
 
         public RoomResponse GetRoomById(int id)
         {
-            return _context.Rooms
-                .Where(room => room.RoomID == id)
-                .Select(room => new RoomResponse
-                {
-                    RoomId = room.RoomID,
-                    Name = room.Name,
-                    Capacity = room.Capacity,
-                    Status = room.Status,
-                    Type = room.Type,
-                    Comment = room.Comment
-                })
-                .FirstOrDefault();
+            var room = _context.Rooms
+                .FirstOrDefault(room => room.RoomID == id);
+
+            if (room == null)
+            {
+                return null;
+            }
+
+            return new RoomResponse
+            {
+                RoomId = room.RoomID,
+                Name = room.Name,
+                Capacity = room.Capacity,
+                Status = room.Status,
+                Type = room.Type,
+                Comment = room.Comment
+            };
         }
 
         public List<RoomResponse> GetAllRooms()

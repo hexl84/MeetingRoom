@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MeetingRoom.WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class RoomController : ControllerBase
     {
 
@@ -22,8 +22,8 @@ namespace MeetingRoom.WebAPI.Controllers
             _roomService = roomService;
         }
 
-        [HttpGet(Name = "GetRoom")]
-        public RoomResponse Get(int id)
+        [HttpGet("{id}")]
+        public RoomResponse GetRoom(int id)
         {
             return _roomQueryService.GetRoomById(id);
         }
@@ -46,7 +46,7 @@ namespace MeetingRoom.WebAPI.Controllers
             _roomService.EditRoom(room);
         }
 
-        [HttpDelete(Name = "DeleteRoom")]
+        [HttpDelete("{id}")]
         public void DeleteRoom(int id)
         {
             _roomService.DeleteRoom(id);
