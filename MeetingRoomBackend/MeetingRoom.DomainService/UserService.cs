@@ -24,15 +24,15 @@ namespace MeetingRoom.DomainService
 
         }
 
-        public void DeleteUser(UserRequest request)
+        public void DeleteUser(int id)
         {
-            var existUser = _userRepository.Get(request.UserId);
+            var existUser = _userRepository.Get(id);
             if (existUser == null)
             {
                 throw new Exception("User not exists");
             }
 
-            _userRepository.Delete(request.UserId);
+            _userRepository.Delete(id);
         }
 
         public void EditUser(UserRequest request)

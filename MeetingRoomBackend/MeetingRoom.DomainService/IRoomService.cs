@@ -6,6 +6,6 @@ namespace MeetingRoom.DomainService
     {
         void AddRoom(RoomRequest request);
         void EditRoom(RoomRequest request);
-        void DeleteRoom(RoomRequest request);
+        void DeleteRoom(int Id);
     }
 }

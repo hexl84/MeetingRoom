@@ -24,15 +24,15 @@ namespace MeetingRoom.DomainService
             _roomRepository.Add(newRoom);
         }
 
-        public void DeleteRoom(RoomRequest request)
+        public void DeleteRoom(int id)
         {
-            var existRoom = _roomRepository.Get(request.RoomId);
+            var existRoom = _roomRepository.Get(id);
             if (existRoom == null)
             {
                 throw new Exception("Room not found");
             }
 
-            throw new NotImplementedException();
+            _roomRepository.Delete(id);
         }
 
         public void EditRoom(RoomRequest request)

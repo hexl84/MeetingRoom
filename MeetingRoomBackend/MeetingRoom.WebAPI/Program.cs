@@ -13,7 +13,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var connectionString = builder.Configuration.GetConnectionString("DbConnection") ?? "Data Source=MeetingRoom.db";
-        //builder.Services.AddSqlite<MeetingRoomContext>(connectionString);
+        builder.Services.AddSqlite<MeetingRoomContext>(connectionString);
 
         builder.Services.AddDbContext<MeetingRoomContext>(options =>
             options.UseSqlite(connectionString));
