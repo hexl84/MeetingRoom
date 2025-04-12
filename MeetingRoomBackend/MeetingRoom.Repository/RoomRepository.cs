@@ -21,7 +21,7 @@ namespace MeetingRoom.Repository
             _context.SaveChanges();
         }
 
-        public Room Get(Guid id)
+        public Room Get(int id)
         {
             return _context.Rooms.Find(id);
         }
@@ -31,13 +31,13 @@ namespace MeetingRoom.Repository
             return _context.Rooms.ToList();
         }
 
-        public void Update(Room user)
+        public void Update(Room room)
         {
-            _context.Rooms.Update(user);
+            _context.Rooms.Update(room);
             _context.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var room = Get(id);
             if (room != null)
@@ -47,5 +47,9 @@ namespace MeetingRoom.Repository
             }
         }
 
+        public Room GetByName(string name)
+        {
+            return _context.Rooms.FirstOrDefault(x => x.Name.Equals(name));
+        }
     }
 }

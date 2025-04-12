@@ -2,8 +2,8 @@
 {
     public interface IRepository<TEntity>
     {
-        TEntity Get(Guid id);
+        TEntity Get(int id);
         void Add(TEntity T);
-
+        void Update(TEntity T);
     }
 }
