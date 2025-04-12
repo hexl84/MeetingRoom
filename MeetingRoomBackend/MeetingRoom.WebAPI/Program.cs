@@ -1,3 +1,5 @@
+using MeetingRoom.DomainService;
+using MeetingRoom.QueryService;
 using MeetingRoom.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -19,6 +21,12 @@ public class Program
 
         //CreateDbIfNotExists(builder);
 
+        builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IRoomService, RoomService>();
+        builder.Services.AddScoped<IUserQueryService, UserQueryService>();
+        builder.Services.AddScoped<IRoomQueryService, RoomQueryService>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

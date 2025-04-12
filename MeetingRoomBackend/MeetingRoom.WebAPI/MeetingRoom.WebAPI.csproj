@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MeetingRoom.DomainService\MeetingRoom.DomainService.csproj" />
     <ProjectReference Include="..\MeetingRoom.DTO\MeetingRoom.DTO.csproj" />
+    <ProjectReference Include="..\MeetingRoom.QueryService\MeetingRoom.QueryService.csproj" />
     <ProjectReference Include="..\MeetingRoom.Repository\MeetingRoom.Repository.csproj" />
   </ItemGroup>
 
