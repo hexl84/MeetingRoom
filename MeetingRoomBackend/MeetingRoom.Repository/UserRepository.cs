@@ -43,5 +43,10 @@ namespace MeetingRoom.Repository
             return _context.Users.FirstOrDefault(x => x.Name.Equals(name));
         }
 
+        public User GetByEmailAndPassword(string email, string password)
+        {
+            return _context.Users.FirstOrDefault(x => x.Email.Equals(email) && x.Password.Equals(password));
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MeetingRoom.DTO.Request;
+using MeetingRoom.DTO.Response;
 
 namespace MeetingRoom.DomainService
 {
@@ -7,5 +8,6 @@ namespace MeetingRoom.DomainService
         void AddUser(UserRequest request);
         void EditUser(UserRequest request);
         void DeleteUser(int id);
+        UserResponse Login(LoginRequest request);
     }
 }

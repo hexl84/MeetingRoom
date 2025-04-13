@@ -54,5 +54,12 @@ namespace MeetingRoom.WebAPI.Controllers
         {
             _userService.DeleteUser(id);
         }
+
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public UserResponse Login([FromBody] LoginRequest request)
+        {
+            return _userService.Login(request);
+        }
     }
 }
