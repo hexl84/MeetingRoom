@@ -8,14 +8,17 @@ namespace MeetingBooking.DomainService
     {
         private readonly IBookingRepository _bookingRepository;
         private readonly IRoomRepository _roomRepository;
+        private readonly IUserRepository _userRepository;
         private readonly MeetingRoomContext _context;
 
         public BookingService(IBookingRepository bookingRepository,
             IRoomRepository roomRepository,
+            IUserRepository userRepository,
             MeetingRoomContext context)
         {
             _bookingRepository = bookingRepository;
             _roomRepository = roomRepository;
+            _userRepository = userRepository;
             _context = context;
         }
 
@@ -30,7 +33,10 @@ namespace MeetingBooking.DomainService
                     throw new Exception("Room not exists");
                 }
 
-                var newBooking = Booking.Create(request.BookingDate, room, request.StartHour, request.EndHour, request.Title, request.Participants);
+                var user = _userRepository.Get(request.UserId);
+
+                var newBooking = Booking.Create(request.BookingDate, room, request.StartHour, request.EndHour, 
+                    request.Title, request.Participants, user);
                 _bookingRepository.Add(newBooking);
 
                 transaction.Commit();

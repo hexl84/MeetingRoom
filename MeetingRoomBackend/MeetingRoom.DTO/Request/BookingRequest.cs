@@ -15,5 +15,6 @@ namespace MeetingRoom.DTO.Request
         public Decimal EndHour { get; set; }
         public string Title { get; set; }
         public int Participants { get; set; }
+        public int UserId { get; set; }
     }
 }
