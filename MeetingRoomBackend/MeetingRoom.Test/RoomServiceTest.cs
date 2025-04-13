@@ -9,12 +9,14 @@ namespace MeetingRoom.Test
     public class RoomServiceTest
     {
         private readonly Mock<IRoomRepository> _roomRepositoryMock;
+        private readonly Mock<MeetingRoomContext> _meetingRoomContextMock;
         private readonly RoomService _roomService;
 
         public RoomServiceTest()
         {
             _roomRepositoryMock = new Mock<IRoomRepository>();
-            _roomService = new RoomService(_roomRepositoryMock.Object);
+            _meetingRoomContextMock = new Mock<MeetingRoomContext>();
+            _roomService = new RoomService(_roomRepositoryMock.Object, _meetingRoomContextMock.Object);
         }
 
         [Fact]
