@@ -2,6 +2,7 @@ using MeetingRoom.DomainService;
 using MeetingRoom.DTO.Request;
 using MeetingRoom.DTO.Response;
 using MeetingRoom.QueryService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace MeetingRoom.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;

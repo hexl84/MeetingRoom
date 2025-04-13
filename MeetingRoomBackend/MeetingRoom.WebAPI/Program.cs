@@ -2,7 +2,6 @@ using MeetingRoom.DomainService;
 using MeetingRoom.QueryService;
 using MeetingRoom.Repository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 
 namespace MeetingRoom.WebAPI.Controllers;
 
@@ -24,6 +23,21 @@ public class Program
         builder.Services.AddScoped<IRoomService, RoomService>();
         builder.Services.AddScoped<IUserQueryService, UserQueryService>();
         builder.Services.AddScoped<IRoomQueryService, RoomQueryService>();
+
+        builder.Services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = "https://your-auth-server.com"; // wait replace
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = "https://your-auth-server.com", // wait replace
+                    ValidAudience = "meeting-room", 
+                };
+            });
+
 
         builder.Services.AddControllers(options =>
         {
@@ -50,6 +64,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();

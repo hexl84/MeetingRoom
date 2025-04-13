@@ -2,12 +2,14 @@ using MeetingRoom.DomainService;
 using MeetingRoom.DTO.Request;
 using MeetingRoom.DTO.Response;
 using MeetingRoom.QueryService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeetingRoom.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class RoomController : ControllerBase
     {
 
