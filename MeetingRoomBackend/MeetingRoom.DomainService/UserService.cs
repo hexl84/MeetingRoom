@@ -1,6 +1,10 @@
 ﻿using MeetingRoom.DTO.Request;
 using MeetingRoom.DTO.Response;
 using MeetingRoom.Repository;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace MeetingRoom.DomainService
 {
@@ -90,8 +94,27 @@ namespace MeetingRoom.DomainService
                 var existUser = _userRepository.GetByEmailAndPassword(loginRequest.Email, loginRequest.Password);
                 if (existUser == null)
                 {
-                    throw new Exception("User not exists");
+                    throw new Exception("Invalid email or password");
                 }
+
+                // Generate JWT Token
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes("MeetingRoom"); 
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, existUser.UserID.ToString()),
+                        new Claim(ClaimTypes.Name, existUser.Name),
+                        new Claim(ClaimTypes.Email, existUser.Email),
+                        new Claim(ClaimTypes.Role, existUser.RoleId.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(1), 
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
 
                 return new UserResponse
                 {
@@ -99,12 +122,13 @@ namespace MeetingRoom.DomainService
                     Name = existUser.Name,
                     Email = existUser.Email,
                     Phone = existUser.Phone,
-                    RoleId = existUser.RoleId
+                    RoleId = existUser.RoleId,
+                    Token = tokenString
                 };
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }

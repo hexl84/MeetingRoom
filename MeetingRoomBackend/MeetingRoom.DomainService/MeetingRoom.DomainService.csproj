@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MeetingRoom.DTO\MeetingRoom.DTO.csproj" />
     <ProjectReference Include="..\MeetingRoom.Repository\MeetingRoom.Repository.csproj" />
   </ItemGroup>
