@@ -1,6 +1,8 @@
-﻿using MeetingRoom.DomainService;
+﻿using MeetingRoom.Domain;
+using MeetingRoom.DomainService;
 using MeetingRoom.DTO.Request;
 using MeetingRoom.Repository;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
@@ -9,20 +11,22 @@ namespace MeetingRoom.Test
     public class RoomServiceTest
     {
         private readonly Mock<IRoomRepository> _roomRepositoryMock;
-        private readonly Mock<MeetingRoomContext> _meetingRoomContextMock;
         private readonly RoomService _roomService;
 
         public RoomServiceTest()
         {
             _roomRepositoryMock = new Mock<IRoomRepository>();
-            _meetingRoomContextMock = new Mock<MeetingRoomContext>();
-            _roomService = new RoomService(_roomRepositoryMock.Object, _meetingRoomContextMock.Object);
+            var options = new DbContextOptionsBuilder<MeetingRoomContext>()
+                        .UseSqlite("DataSource=:memory:")
+                        .Options;
+
+            var context = new MeetingRoomContext(options);
+            _roomService = new RoomService(_roomRepositoryMock.Object, context);
         }
 
         [Fact]
         public void AddRoom_ShouldAddRoom_WhenRoomDoesNotExist()
         {
-            // Arrange
             var request = new RoomRequest
             {
                 Name = "Conference Room",
@@ -32,13 +36,11 @@ namespace MeetingRoom.Test
                 Comment = "Main conference room"
             };
 
-            _roomRepositoryMock.Setup(repo => repo.GetByName(request.Name)).Returns((Domain.Room)null);
+            _roomRepositoryMock.Setup(repo => repo.GetByName(request.Name)).Returns((Room)null);
 
-            // Act
             _roomService.AddRoom(request);
 
-            // Assert
-            _roomRepositoryMock.Verify(repo => repo.Add(It.Is<Domain.Room>(r =>
+            _roomRepositoryMock.Verify(repo => repo.Add(It.Is<Room>(r =>
                 r.Name == request.Name &&
                 r.Capacity == request.Capacity &&
                 r.Status == request.Status &&
@@ -50,7 +52,6 @@ namespace MeetingRoom.Test
         [Fact]
         public void AddRoom_ShouldThrowException_WhenRoomAlreadyExists()
         {
-            // Arrange
             var request = new RoomRequest
             {
                 Name = "Conference Room",
@@ -60,10 +61,9 @@ namespace MeetingRoom.Test
                 Comment = "Main conference room"
             };
 
-            var existingRoom = Domain.Room.Create(request.Name, request.Capacity, request.Status, request.Type, request.Comment);
+            var existingRoom = Room.Create(request.Name, request.Capacity, request.Status, request.Type, request.Comment);
             _roomRepositoryMock.Setup(repo => repo.GetByName(request.Name)).Returns(existingRoom);
 
-            // Act & Assert
             var exception = Assert.Throws<Exception>(() => _roomService.AddRoom(request));
             Assert.Equal("Room already exists", exception.Message);
         }
@@ -71,26 +71,22 @@ namespace MeetingRoom.Test
         [Fact]
         public void DeleteRoom_ShouldDeleteRoom_WhenRoomExists()
         {
-            // Arrange
             var roomId = 1;
-            var existingRoom = Domain.Room.Create("Conference Room", 10, "Available", "Large", "Main conference room");
+            var existingRoom = Room.Create("Conference Room", 10, "Available", "Large", "Main conference room");
             _roomRepositoryMock.Setup(repo => repo.Get(roomId)).Returns(existingRoom);
 
-            // Act
             _roomService.DeleteRoom(roomId);
 
-            // Assert
             _roomRepositoryMock.Verify(repo => repo.Delete(roomId), Times.Once);
         }
 
         [Fact]
         public void DeleteRoom_ShouldThrowException_WhenRoomDoesNotExist()
         {
-            // Arrange
-            var roomId = 1;
-            _roomRepositoryMock.Setup(repo => repo.Get(roomId)).Returns((Domain.Room)null);
 
-            // Act & Assert
+            var roomId = 1;
+            _roomRepositoryMock.Setup(repo => repo.Get(roomId)).Returns((Room)null);
+
             var exception = Assert.Throws<Exception>(() => _roomService.DeleteRoom(roomId));
             Assert.Equal("Room not found", exception.Message);
         }
@@ -98,7 +94,6 @@ namespace MeetingRoom.Test
         [Fact]
         public void EditRoom_ShouldUpdateRoom_WhenRoomExists()
         {
-            // Arrange
             var request = new RoomRequest
             {
                 RoomId = 1,
@@ -109,14 +104,12 @@ namespace MeetingRoom.Test
                 Comment = "Updated details"
             };
 
-            var existingRoom = Domain.Room.Create("Original Room", 10, "Available", "Large", "Original details");
+            var existingRoom = Room.Create("Original Room", 10, "Available", "Large", "Original details");
             _roomRepositoryMock.Setup(repo => repo.Get(request.RoomId)).Returns(existingRoom);
 
-            // Act
             _roomService.EditRoom(request);
 
-            // Assert
-            _roomRepositoryMock.Verify(repo => repo.Update(It.Is<Domain.Room>(r =>
+            _roomRepositoryMock.Verify(repo => repo.Update(It.Is<Room>(r =>
                 r.Name == request.Name &&
                 r.Capacity == request.Capacity &&
                 r.Status == request.Status &&
@@ -128,7 +121,6 @@ namespace MeetingRoom.Test
         [Fact]
         public void EditRoom_ShouldThrowException_WhenRoomDoesNotExist()
         {
-            // Arrange
             var request = new RoomRequest
             {
                 RoomId = 1,
@@ -139,9 +131,8 @@ namespace MeetingRoom.Test
                 Comment = "Updated details"
             };
 
-            _roomRepositoryMock.Setup(repo => repo.Get(request.RoomId)).Returns((Domain.Room)null);
+            _roomRepositoryMock.Setup(repo => repo.Get(request.RoomId)).Returns((Room)null);
 
-            // Act & Assert
             var exception = Assert.Throws<Exception>(() => _roomService.EditRoom(request));
             Assert.Equal("Room not found", exception.Message);
         }
