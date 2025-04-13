@@ -28,13 +28,14 @@ namespace MeetingRoom.Repository
         // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+            //options.UseSqlite($"Data Source=.. / MeetingRoom.db");
             options
             .UseAsyncSeeding(async (context, _, cancellationToken) =>
             {
                 var adminUser = await context.Set<User>().FirstOrDefaultAsync(b => b.Email == "admin@mail.com");
                 if (adminUser == null)
                 {
-                    adminUser = User.Create("admin", "admin@mail.com", "15912345678", 1);
+                    adminUser = User.Create("admin", "admin@mail.com", "15912345678", 1, "123123");
                     await context.Set<User>().AddAsync(adminUser);
                     await context.SaveChangesAsync();
                 }

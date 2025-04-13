@@ -58,7 +58,7 @@ namespace MeetingRoom.Test
                 RoleId = 1
             };
 
-            var existingUser = User.Create(request.Name, request.Email, request.Phone, request.RoleId);
+            var existingUser = User.Create(request.Name, request.Email, request.Phone, request.RoleId, request.Password);
             _userRepositoryMock.Setup(repo => repo.GetByName(request.Name)).Returns(existingUser);
 
             var exception = Assert.Throws<Exception>(() => _userService.AddUser(request));
@@ -77,7 +77,7 @@ namespace MeetingRoom.Test
                 RoleId = 2
             };
 
-            var existingUser = User.Create("Original Name", "original.email@example.com", "1234567890", 1);
+            var existingUser = User.Create("Original Name", "original.email@example.com", "1234567890", 1, "123123");
             _userRepositoryMock.Setup(repo => repo.Get(request.UserId)).Returns(existingUser);
 
             _userService.EditUser(request);
@@ -112,7 +112,7 @@ namespace MeetingRoom.Test
         public void DeleteUser_ShouldDeleteUser_WhenUserExists()
         {
             var userId = 1;
-            var existingUser = User.Create("John Doe", "john.doe@example.com", "1234567890", 1);
+            var existingUser = User.Create("John Doe", "john.doe@example.com", "1234567890", 1, "123123");
             _userRepositoryMock.Setup(repo => repo.Get(userId)).Returns(existingUser);
 
             _userService.DeleteUser(userId);

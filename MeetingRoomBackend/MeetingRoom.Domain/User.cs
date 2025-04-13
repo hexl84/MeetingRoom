@@ -13,25 +13,28 @@ namespace MeetingRoom.Domain
         public string Email { get; set; }
         public string Phone { get; set; }
         public int RoleId { get; set; }
+        public string Password { get; set; }    
 
-        public static Domain.User Create(string name, string email, string phone, int roleId)
+        public static Domain.User Create(string name, string email, string phone, int roleId, string password)
         {
             var user = new User
             {
                 Name = name,
                 Email = email,
                 Phone = phone,
-                RoleId = roleId
+                RoleId = roleId,
+                Password = password
             };
             return user;
         }
 
-        public void Update(string name, string email, string phone, int roleId)
+        public void Update(string name, string email, string phone, int roleId, string password)
         {
             Name = name;
             Email = email;
             Phone = phone;
             RoleId = roleId;
+            Password = password;
         }
     }
 }

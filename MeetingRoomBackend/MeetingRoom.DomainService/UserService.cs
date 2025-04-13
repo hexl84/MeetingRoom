@@ -25,7 +25,7 @@ namespace MeetingRoom.DomainService
                     throw new Exception("User already exists");
                 }
 
-                var newUser = Domain.User.Create(request.Name, request.Email, request.Phone, request.RoleId);
+                var newUser = Domain.User.Create(request.Name, request.Email, request.Phone, request.RoleId, request.Password);
                 _userRepository.Add(newUser);
 
                 transaction.Commit();
@@ -48,7 +48,7 @@ namespace MeetingRoom.DomainService
                     throw new Exception("User not exists");
                 }
 
-                existUser.Update(request.Name, request.Email, request.Phone, request.RoleId);
+                existUser.Update(request.Name, request.Email, request.Phone, request.RoleId, request.Password);
                 _userRepository.Update(existUser);
 
                 transaction.Commit();

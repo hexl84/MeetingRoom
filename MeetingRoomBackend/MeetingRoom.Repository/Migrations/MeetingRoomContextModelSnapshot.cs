@@ -67,6 +67,9 @@ namespace MeetingRoom.Repository.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Password")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("UserID");
 
                     b.ToTable("Users");
